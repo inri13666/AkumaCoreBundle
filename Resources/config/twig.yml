@@ -1,0 +1,15 @@
+services:
+    akuma_core.twig.functions:
+            class: Akuma\Bundle\CoreBundle\Twig\Functions
+            arguments: []
+            calls:
+                - [setContainer, ["@service_container"]]
+            tags:
+                - { name: twig.extension }
+    akuma_core.twig.filters:
+            class: Akuma\Bundle\CoreBundle\Twig\Filters
+            arguments: []
+            calls:
+                - [setContainer, ["@service_container"]]
+            tags:
+                - { name: twig.extension }

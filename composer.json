@@ -1,0 +1,24 @@
+{
+    "name": "akuma/core-bundle",
+    "type": "symfony-bundle",
+    "description": "Akuma Core Bundle",
+    "keywords": [Test"],
+    "homepage": "",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nikita Makarov",
+            "email": "mesaverde228@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.4",
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-0": { "Akuma\\Bundle\\CoreBundle": "" }
+    },
+    "target-dir": "Akuma/Bundle/CoreBundle"
+}
