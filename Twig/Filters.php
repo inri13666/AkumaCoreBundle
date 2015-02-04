@@ -22,11 +22,11 @@ class Filters extends \Twig_Extension implements ContainerAwareInterface
     {
         return array(
             new \Twig_SimpleFilter('count', array($this, 'countFilter')),
-            new \Twig_SimpleFilter('pre', array($this, 'preFilter')),
+            new \Twig_SimpleFilter('pre', array($this, 'preFilter'), array('is_safe' => array('html'))),
         );
     }
 
-    public function preFilter($data = null)
+    public function preFilter($data)
     {
         return "<pre>" . print_r($data, true) . "</pre>";
     }
