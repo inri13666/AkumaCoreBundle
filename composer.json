@@ -2,7 +2,7 @@
     "name": "akuma/core-bundle",
     "type": "symfony-bundle",
     "description": "Akuma Core Bundle",
-    "keywords": [Test"],
+    "keywords": ["Test"],
     "homepage": "",
     "license": "MIT",
     "authors": [
