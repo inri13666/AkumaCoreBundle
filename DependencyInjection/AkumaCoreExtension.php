@@ -42,6 +42,35 @@ class AkumaCoreExtension extends Extension implements PrependExtensionInterface
         if (isset($bundles['TwigBundle'])) {
             $this->appendTwigBundle($container);
         }
+
+        if (isset($bundles['DoctrineBundle'])) {
+            $this->appendDoctrine($container);
+        }
+    }
+
+    public function appendDoctrine(ContainerBuilder $container)
+    {
+        $config = array(
+            'orm' => array(
+                'dql' => array(
+                    'numeric_functions' => array(
+                        'Rand'=>'Akuma\Bundle\CoreBundle\Doctrine\DQL\RandFunction',
+                    )
+                )
+            )
+        );
+
+
+        $bundles = $container->getParameter('kernel.bundles');
+        if (isset($bundles['DoctrineBundle'])) {
+            foreach ($container->getExtensions() as $name => $extension) {
+                switch ($name) {
+                    case 'doctrine':
+                        $container->prependExtensionConfig($name, $config);
+                        break;
+                }
+            }
+        }
     }
 
     protected function appendTwigBundle(ContainerBuilder $container)
