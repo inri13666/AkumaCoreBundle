@@ -33,28 +33,20 @@ class AkumaCoreExtension extends Extension implements PrependExtensionInterface
     public function prepend(ContainerBuilder $container)
     {
         $bundles = $container->getParameter('kernel.bundles');
-        if (isset($bundles['AsseticBundle'])) {
-            if (isset($bundles['BraincraftedBootstrapBundle'])) {
-                $this->appendAsseticBundle($container);
+        foreach ($bundles as $bundle => $class) {
+            if (method_exists($this, 'prepend' . $bundle)) {
+                call_user_func_array(array($this, 'prepend' . $bundle), array($container));
             }
-        }
-
-        if (isset($bundles['TwigBundle'])) {
-            $this->appendTwigBundle($container);
-        }
-
-        if (isset($bundles['DoctrineBundle'])) {
-            $this->appendDoctrine($container);
         }
     }
 
-    public function appendDoctrine(ContainerBuilder $container)
+    public function prependDoctrineBundle(ContainerBuilder $container)
     {
         $config = array(
             'orm' => array(
                 'dql' => array(
                     'numeric_functions' => array(
-                        'Rand'=>'Akuma\Bundle\CoreBundle\Doctrine\DQL\RandFunction',
+                        'Rand' => 'Akuma\Bundle\CoreBundle\Doctrine\DQL\RandFunction',
                     )
                 )
             )
@@ -73,42 +65,22 @@ class AkumaCoreExtension extends Extension implements PrependExtensionInterface
         }
     }
 
-    protected function appendTwigBundle(ContainerBuilder $container)
+    protected function prependAsseticBundle(ContainerBuilder $container)
     {
-        $config = array(
-            'form' => array(
-                'resources' => array(
-                    'AkumaCoreBundle:Form:fields.html.twig',
-                )
-            )
-        );
-
-        $bundles = $container->getParameter('kernel.bundles');
-        if (isset($bundles['TwigBundle'])) {
-            foreach ($container->getExtensions() as $name => $extension) {
-                switch ($name) {
-                    case 'twig':
-                        $container->prependExtensionConfig($name, $config);
-                        break;
-                }
-            }
-        }
-    }
-
-    protected function appendAsseticBundle(ContainerBuilder $container)
-    {
-        $configs = $container->getExtensionConfig('braincrafted_bootstrap');
-        $config = $this->processConfiguration(new \Braincrafted\Bundle\BootstrapBundle\DependencyInjection\Configuration(), $configs);
-        if (isset($config['auto_configure']) && isset($config['auto_configure']['assetic']) && ($config['auto_configure']['assetic'])) {
-            foreach (array_keys($container->getExtensions()) as $name) {
-                switch ($name) {
-                    case 'assetic':
-                        $asseticConfig = new AsseticConfiguration;
-                        $container->prependExtensionConfig(
-                            $name,
-                            array('assets' => $asseticConfig->build($config))
-                        );
-                        break;
+        if (class_exists('Braincrafted\Bundle\BootstrapBundle\DependencyInjection\Configuration')) {
+            $configs = $container->getExtensionConfig('braincrafted_bootstrap');
+            $config = $this->processConfiguration(new \Braincrafted\Bundle\BootstrapBundle\DependencyInjection\Configuration(), $configs);
+            if (isset($config['auto_configure']) && isset($config['auto_configure']['assetic']) && ($config['auto_configure']['assetic'])) {
+                foreach (array_keys($container->getExtensions()) as $name) {
+                    switch ($name) {
+                        case 'assetic':
+                            $asseticConfig = new AsseticConfiguration;
+                            $container->prependExtensionConfig(
+                                $name,
+                                array('assets' => $asseticConfig->build($config))
+                            );
+                            break;
+                    }
                 }
             }
         }
