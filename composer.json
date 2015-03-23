@@ -1,27 +1,29 @@
 {
-    "name": "akuma/core-bundle",
-    "type": "symfony-bundle",
-    "description": "Akuma Core Bundle",
-    "keywords": ["Test"],
-    "homepage": "",
-    "license": "MIT",
-    "authors": [
+    "name"             : "akuma/core-bundle",
+    "type"             : "symfony-bundle",
+    "description"      : "Akuma Core Bundle",
+    "keywords"         : ["Test"],
+    "homepage"         : "",
+    "license"          : "MIT",
+    "authors"          : [
         {
-            "name": "Nikita Makarov",
+            "name" : "Nikita Makarov",
             "email": "mesaverde228@gmail.com"
         }
     ],
     "minimum-stability": "dev",
-    "require": {
+    "require"          : {
         "php": ">=5.4"
     },
-    "require-dev": {
+    "require-dev"      : {
     },
-    "autoload": {
-        "psr-0": { "Akuma\\Bundle\\CoreBundle": "" }
+    "autoload"         : {
+        "psr-0": {
+            "Akuma\\Bundle\\CoreBundle": ""
+        }
     },
-    "target-dir": "Akuma/Bundle/CoreBundle",
-	 "extra": {
+    "target-dir"       : "Akuma/Bundle/CoreBundle",
+    "extra"            : {
         "branch-alias": {
             "dev-master": "1.0.x-dev"
         }
