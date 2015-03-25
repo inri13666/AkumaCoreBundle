@@ -5,3 +5,17 @@ services:
 #    akuma_core.example:
 #        class: Akuma\Bundle\CoreBundle\Example
 #        arguments: [@service_id, "plain_value", %parameter%]
+
+#Uncomment to add "Child Options"
+#parameters:
+#    knp_menu.factory_extension.routing.class: Akuma\Bundle\CoreBundle\Knp\RoutingExtension
+#
+#services:
+#    knp_menu.factory_extension.routing:
+#        class: Akuma\Bundle\CoreBundle\Knp\RoutingExtension
+#        public: false
+#        arguments: ["@router"]
+#        calls:
+#            - [setContainer, ["@service_container"]]
+#        tags:
+#            - { name: knp_menu.factory_extension }
