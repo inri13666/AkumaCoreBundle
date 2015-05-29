@@ -1,14 +1,16 @@
+parameters:
+   akuma_core.twig.functions.class: Akuma\Bundle\CoreBundle\Twig\Functions
+   akuma_core.twig.filters.class: Akuma\Bundle\CoreBundle\Twig\Filters
+
 services:
     akuma_core.twig.functions:
-            class: Akuma\Bundle\CoreBundle\Twig\Functions
-            arguments: []
+            class: %akuma_core.twig.functions.class%
             calls:
                 - [setContainer, ["@service_container"]]
             tags:
                 - { name: twig.extension }
     akuma_core.twig.filters:
-            class: Akuma\Bundle\CoreBundle\Twig\Filters
-            arguments: []
+            class: %akuma_core.twig.filters.class%
             calls:
                 - [setContainer, ["@service_container"]]
             tags:
