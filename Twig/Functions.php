@@ -21,7 +21,8 @@ class Functions extends \Twig_Extension implements ContainerAwareInterface
      */
     public function getFunctions()
     {
-        return array(//'???' => new \Twig_Function_Method($this, '???'),
+        return array(
+            't' => new \Twig_Function_Method($this, 'translate'),
         );
     }
 
@@ -31,6 +32,11 @@ class Functions extends \Twig_Extension implements ContainerAwareInterface
     public function getName()
     {
         return 'akuma.core.twig.functions';
+    }
+
+    public function translate($what, $type = "twig")
+    {
+        return $what;
     }
 
     /**
